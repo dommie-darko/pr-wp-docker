@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  wp:
+    build:
+      context: '.'
+    environment:
+      PR_TEST: batman
+    ports:
+      - '0.0.0.0:8023:80'
+    volumes:
+      - './app:/var/www/html/wp-content/themes/pr'
+
+  db:
+    image: 'mariadb:10.1'
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'wordpress'
+      MYSQL_USER: 'wordpress'
+      MYSQL_PASSWORD: 'wordpress'
+    volumes:
+      - './data/mysql:/var/lib/mysql'
